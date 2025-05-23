@@ -1,73 +1,47 @@
 // src/App.tsx
 import React from 'react';
 // ... other imports like Counter, DataFetcher etc.
-import UserGreeting from './components/UserGreeting'; // 1. Import UserGreeting
-import ProductList from './components/ProductList';
-import NameForm from './components/NameForm';
-import ThemedPanel from './components/ThemedPanel';
-import ThemeToggleButton from './components/ThemeToggleButton';
-import type { Product } from './components/ProductList';
+import Greeting from './components/Greeting';
+import DataFetcher from './components/DataFetcher';
+import Counter from './components/Counter';
 import './App.css';
 
-const sampleProducts: Product[] = [
-  { id: 'p1', name: 'Laptop Pro', price: 1200, category: 'Electronics' },
-  { id: 'p2', name: 'Coffee Maker Deluxe', price: 80, category: 'Appliances' },
-  { id: 'p3', name: 'Wireless Headphones', price: 150, category: 'Electronics' },
-  { id: 'p4', name: 'Running Shoes X', price: 100, category: 'Footwear' },
-];
-
 function App() {
-  // You can manage isLoggedIn and username from App's state to make it dynamic
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState(false);
-  const [currentUsername, setCurrentUsername] = React.useState<string | undefined>(undefined);
+  const [currentCount, setCurrentCount] = React.useState<number>(0);
 
-  // Mock login/logout functions to toggle state
-  const handleLogin = () => {
-    setIsUserLoggedIn(true);
-    setCurrentUsername("Alice"); // Or get from an input, etc.
+  const handleIncrementCount = () => {
+    setCurrentCount(prevCount => prevCount + 1);
   };
 
-  const handleLogout = () => {
-    setIsUserLoggedIn(false);
-    setCurrentUsername(undefined);
+  const handleDecrementCount = () => {
+    setCurrentCount(prevCount => prevCount - 1);
   };
 
-  // ... (rest of your App component, counter state logic, etc.)
+  const handleResetCount = () => {
+    setCurrentCount(0);
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <h1>My TypeScript React App</h1>
-        {/* ... other components ... */}
+        <Greeting name="Developer" message="Learning about useEffect!" />
 
         <hr style={{ margin: '20px 0', width: '50%' }} /> 
 
-        <div>
-          <button onClick={isUserLoggedIn ? handleLogout : handleLogin}>
-            {isUserLoggedIn ? 'Test Log Out' : 'Test Log In'}
-          </button>
+        <Counter 
+          count={currentCount} 
+          onIncrement={handleIncrementCount}
+          onDecrement={handleDecrementCount} 
+        />
+        <div style={{ marginTop: '10px', marginBottom: '20px' }}>
+          <button onClick={handleResetCount}>Reset Count from App</button>
         </div>
 
-        {/* 2. Use the UserGreeting component */}
-        <UserGreeting isLoggedIn={isUserLoggedIn} username={currentUsername} />
+        <hr style={{ margin: '20px 0', width: '50%' }} /> 
 
-        {/* You can also test with hardcoded props */}
-        {/* <UserGreeting isLoggedIn={true} username="Bob" /> */}
-        {/* <UserGreeting isLoggedIn={true} /> */}
-        {/* <UserGreeting isLoggedIn={false} /> */}
-
-        {/* ... other components like DataFetcher ... */}
-
-        <h2>Our Products</h2>
-        <ProductList products={sampleProducts} />
-
-        <h2>Names</h2>
-        <NameForm />
-
-        <h2>Themes</h2>
-
-        <ThemeToggleButton /> {/* Add the button */}
-        <ThemedPanel /> 
+        {/* 2. Use the DataFetcher component */}
+        <DataFetcher itemId={currentCount}/>
       </header>
     </div>
   );
