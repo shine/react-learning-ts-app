@@ -4,6 +4,10 @@ import React from 'react';
 import Greeting from './components/Greeting';
 import DataFetcher from './components/DataFetcher';
 import Counter from './components/Counter';
+import FocusInput from './components/FocusInput';
+import ErrorBoundary from './components/ErrorBoundary';
+import ProblematicComponent from './components/ProblematicComponent';
+
 import './App.css';
 
 function App() {
@@ -42,6 +46,13 @@ function App() {
 
         {/* 2. Use the DataFetcher component */}
         <DataFetcher itemId={currentCount}/>
+
+        <FocusInput />
+
+        <p>The following component is wrapped in an ErrorBoundary:</p>
+        <ErrorBoundary fallback={<h2 style={{color: 'red'}}>A specific fallback UI for this component!</h2>}>
+          <ProblematicComponent />
+        </ErrorBoundary>
       </header>
     </div>
   );
