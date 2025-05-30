@@ -1,0 +1,46 @@
+/* src/components/ProductList.module.css */
+.productListContainer { /* An optional class for the main container div if needed */
+  /* Add any overall container styles here if you wrap the ul */
+}
+
+.productList { /* Style for the UL element */
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px; /* Added some margin */
+}
+
+.productListItem { /* Style for each LI element */
+  border: 1px solid #b3cde0; /* Light blue border */
+  padding: 15px;
+  margin-bottom: 12px; /* Increased margin */
+  border-radius: 8px;
+  background-color: #f0f8ff; /* AliceBlue background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* Softer shadow */
+  transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.productListItem:hover {
+  transform: translateY(-3px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.productName {
+  color: #03396c; /* Darker blue for name */
+  font-size: 1.25em; /* Slightly larger */
+  margin-top: 0;
+  margin-bottom: 0; /* Increased margin */
+}
+
+.productCategory {
+  font-size: 0.9em;
+  color: #607d8b; /* Slate gray for category */
+  margin-bottom: 8px;
+  margin-top: 0;
+  font-style: italic;
+}
+
+.productPrice {
+  font-weight: bold;
+  color: #00796b; /* Teal for price */
+  font-size: 1.1em;
+}
