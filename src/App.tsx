@@ -1,83 +1,50 @@
 // src/App.tsx
 import React from 'react';
-// ... other imports like Counter, DataFetcher etc.
-import Greeting from './components/Greeting';
-import DataFetcher from './components/DataFetcher';
-import Counter from './components/Counter';
-import FocusInput from './components/FocusInput';
-import ErrorBoundary from './components/ErrorBoundary';
-import ProblematicComponent from './components/ProblematicComponent';
-import ProductList from './components/ProductList';
-import type { Product } from './components/ProductList';
-
+import { Routes, Route, Link } from 'react-router-dom'; // 1. Import routing components
+import HomePage from './pages/HomePage'; // Import your page components
+import AboutPage from './pages/AboutPage';
+import UserProfilePage from './pages/UserProfilePage';
+// ... other existing imports (ThemeToggleButton, ThemedPanel, etc.)
 import './App.css';
 
-const initialProducts: Product[] = [ // Make sure this or similar is defined
-  { id: 'p1', name: 'Laptop Pro X', price: 1250, category: 'Electronics' },
-  { id: 'p2', name: 'Espresso Machine V2', price: 280, category: 'Appliances' },
-  { id: 'p3', name: 'Noise-Cancelling Headphones II', price: 199, category: 'Electronics' },
-  { id: 'p4', name: 'Trail Running Shoes Pro', price: 120, category: 'Footwear' },
-];
+// You can keep your existing layout/components here or create a dedicated Layout component
+const Navigation: React.FC = () => (
+  <nav style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
+    <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
+    <Link to="/about" style={{ marginRight: '10px' }}>About</Link>
+    <Link to="/profile/Alice" style={{ marginRight: '10px' }}>Profile (Alice)</Link>
+    <Link to="/profile/Bob">Profile (Bob)</Link>
+  </nav>
+);
 
 function App() {
-  const [products, setProducts] = React.useState<Product[]>(initialProducts);
-  const [currentCount, setCurrentCount] = React.useState<number>(0);
-
-  const handleIncrementCount = () => {
-    setCurrentCount(prevCount => prevCount + 1);
-  };
-
-  const handleDecrementCount = () => {
-    setCurrentCount(prevCount => prevCount - 1);
-  };
-
-  const handleResetCount = () => {
-    setCurrentCount(0);
-  };
-
-    const handleChangeFirstProductPrice = () => { // Example function from before
-    setProducts(currentProducts => 
-      currentProducts.map(product => 
-        product.id === 'p1' 
-          ? { ...product, price: product.price + 50 } 
-          : product 
-      )
-    );
-  };
+  // ... (any existing App-level state or logic can remain)
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>My TypeScript React App</h1>
-        <Greeting name="Developer" message="Learning about useEffect!" />
-
-        <hr style={{ margin: '20px 0', width: '50%' }} /> 
-
-        <Counter 
-          count={currentCount} 
-          onIncrement={handleIncrementCount}
-          onDecrement={handleDecrementCount} 
-        />
-        <div style={{ marginTop: '10px', marginBottom: '20px' }}>
-          <button onClick={handleResetCount}>Reset Count from App</button>
-        </div>
-
-        <hr style={{ margin: '20px 0', width: '50%' }} /> 
-        
-        <h2>Our Products</h2>   
-        <button onClick={handleChangeFirstProductPrice} style={{marginBottom: '10px'}}></button>    
-        <ProductList products={products} />
-
-        {/* 2. Use the DataFetcher component */}
-        <DataFetcher itemId={currentCount}/>
-
-        <FocusInput />
-
-        <p>The following component is wrapped in an ErrorBoundary:</p>
-        <ErrorBoundary fallback={<h2 style={{color: 'red'}}>A specific fallback UI for this component!</h2>}>
-          <ProblematicComponent />
-        </ErrorBoundary>
+        <h1>My Multi-Page React App</h1>
+        <Navigation /> {/* Add your navigation links */}
       </header>
+
+      <main style={{ padding: '20px' }}>
+        {/* 2. Define your routes */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/profile/:username" element={<UserProfilePage />} /> {/* Route with a parameter */}
+          <Route path="*" element={<h2>404 - Page Not Found</h2>} /> {/* Fallback for unmatched routes */}
+        </Routes>
+      </main>
+
+      {/* You can still include other global components if needed */}
+      {/* For example, ThemeToggleButton, ThemedPanel if they are global */}
+      {/* <ThemeToggleButton /> */}
+      {/* <ThemedPanel /> */}
+
+      <footer style={{ marginTop: '30px', paddingTop: '10px', borderTop: '1px solid #ccc', textAlign: 'center' }}>
+        <p>&copy; {new Date().getFullYear()} My Awesome App</p>
+      </footer>
     </div>
   );
 }
