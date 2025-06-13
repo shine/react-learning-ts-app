@@ -4,6 +4,8 @@ import { Routes, Route, Link } from 'react-router-dom'; // 1. Import routing com
 import HomePage from './pages/HomePage'; // Import your page components
 import AboutPage from './pages/AboutPage';
 import UserProfilePage from './pages/UserProfilePage';
+import CounterDisplay from './components/CounterDisplay';
+import CounterControls from './components/CounterControls';
 // ... other existing imports (ThemeToggleButton, ThemedPanel, etc.)
 import './App.css';
 
@@ -45,6 +47,9 @@ function App() {
       <footer style={{ marginTop: '30px', paddingTop: '10px', borderTop: '1px solid #ccc', textAlign: 'center' }}>
         <p>&copy; {new Date().getFullYear()} My Awesome App</p>
       </footer>
+
+      <CounterDisplay />
+      <CounterControls />
     </div>
   );
 }
