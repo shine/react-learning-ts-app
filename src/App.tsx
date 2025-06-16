@@ -1,11 +1,12 @@
 // src/App.tsx
-import React from 'react';
+import React, {useState} from 'react';
 import { Routes, Route, Link } from 'react-router-dom'; // 1. Import routing components
 import HomePage from './pages/HomePage'; // Import your page components
 import AboutPage from './pages/AboutPage';
 import UserProfilePage from './pages/UserProfilePage';
 import CounterDisplay from './components/CounterDisplay';
 import CounterControls from './components/CounterControls';
+import Modal from './components/Modal';
 // ... other existing imports (ThemeToggleButton, ThemedPanel, etc.)
 import './App.css';
 
@@ -21,6 +22,10 @@ const Navigation: React.FC = () => (
 
 function App() {
   // ... (any existing App-level state or logic can remain)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="App">
@@ -50,6 +55,19 @@ function App() {
 
       <CounterDisplay />
       <CounterControls />
+
+      <hr style={{ margin: '20px 0', width: '50%' }} /> 
+
+      {/* 3. Button to trigger the modal */}
+      <button onClick={openModal}>Open Modal</button>
+
+      {/* 4. The Modal component itself */}
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <h2>This is a Modal!</h2>
+        <p>This content is rendered in a different part of the DOM tree using a portal, which helps avoid CSS stacking issues.</p>
+        <button onClick={closeModal}>Close from inside</button>
+      </Modal>
+
     </div>
   );
 }
