@@ -7,6 +7,7 @@ import UserProfilePage from './pages/UserProfilePage';
 import CounterDisplay from './components/CounterDisplay';
 import CounterControls from './components/CounterControls';
 import Modal from './components/Modal';
+import ComplexCounter from './components/ComplexCounter';
 // ... other existing imports (ThemeToggleButton, ThemedPanel, etc.)
 import './App.css';
 
@@ -68,6 +69,10 @@ function App() {
         <button onClick={closeModal}>Close from inside</button>
       </Modal>
 
+      <hr style={{ margin: '20px 0', width: '50%' }} /> 
+
+      {/* 2. Use the ComplexCounter component */}
+      <ComplexCounter />
     </div>
   );
 }
